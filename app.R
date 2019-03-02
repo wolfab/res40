@@ -4,8 +4,6 @@ library(shinythemes)
 library(tidyverse)
 library(ggplot2)
 library(kableExtra)
-library(scam)
-library(rms)
 
 # Load data
 dat <- readRDS(file="~/R/triplot/data/prv.RDat")
@@ -18,32 +16,6 @@ dat <- dat %>% group_by(lob, type, ay) %>%
   ungroup() %>%
   gather(cumul, value, -(lob:dev)) %>%
   mutate(cumul = if_else(cumul == "value", TRUE, FALSE))
-
-###############################
-
-# df <- dat %>% group_by(lob, type, ay, cumul) %>%
-#   mutate(fac = value / lag(value)) %>%
-#   ungroup %>% na.omit %>% filter(is.finite(fac))
-#
-#
-# df1 <- df %>% group_by(lob, type, cumul, dev) %>%
-#   filter(type %in% c("inc","paid")) %>%
-#   summarise(mean = mean(fac, trim = 0),
-#             trimmean = mean(fac, trim = 1/n())) %>%
-#   ungroup %>%
-#   gather(method, fac, -dev, -lob, -type, -cumul)
-#
-#
-# df2 <- df %>% filter(type %in% c("inc","paid")) %>% nest(-lob, -type, -cumul) %>%
-#   mutate(fit = map(data, ~ loess(fac ~ dev, ., span = 0.6))) %>%
-#   unnest(map2(fit, data, augment)) %>%
-#   select(lob,type,cumul,dev,.fitted) %>%
-#   distinct %>%
-#   add_column(method = "loess") %>%
-#   rename(fac = .fitted) %>%
-#   bind_rows(df1,.)
-
-############################
 
 dtri <- function(dat, cal = FALSE, digits = 2, th = 0, q = c(0.2,2)){
 
@@ -74,8 +46,6 @@ dtri <- function(dat, cal = FALSE, digits = 2, th = 0, q = c(0.2,2)){
     add_column(AY=firstcol, .before = 1) %>%
     kable(escape=FALSE, caption = "", digits = 2) %>%
     column_spec(1, bold = T, include_thead = TRUE) %>%
-    #        column_spec(1, bold = T, color = "white", background = "black", include_thead = TRUE) %>%
-    #        column_spec(2:(ncol(dt)+1), color = "white", background = "black", include_thead = TRUE) %>%
     kable_styling(bootstrap_options = c("bordered", "striped", "condensed")) %>%
     column_spec(1, bold = T)
 }
@@ -182,18 +152,6 @@ server <- function(input, output) {
                 trimmean = mean(fac, trim = 1/n())) %>%
       ungroup %>%
       gather(method, fac, -dev)
-
-    #        dd <- datadist(df); options(datadist='dd')
-    #        cr <- function(x) x ^ (1/3)
-    #        f <- ols(fac ~ rcs(cr(dev), 5), data=df)
-    #        pred <- Predict(f, np = max(df$dev) - 1)$yhat
-    #        df2 <- bind_rows(df2, tibble(method="splines", dev=2:max(df$dev), fac=pred)) %>% na.omit
-
-    #      con <- scam(fac ~ s(dev, k = 10, bs = "mpd"), data = df)
-    #     pred <- predict(con, tibble(dev=2:max(df$dev)))
-    #     df2 <- bind_rows(df2, tibble(method="splines", dev=2:max(df$dev), value=pred)) %>% na.omit
-
-    #     df <- filter(df, abs(1-fac)<0.1)
 
     ggplot(df, aes(x=as.factor(dev), y=fac)) +
       geom_jitter(width=0.1) +
