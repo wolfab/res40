@@ -17,6 +17,21 @@ dat <- dat %>% group_by(lob, type, ay) %>%
   gather(cumul, value, -(lob:dev)) %>%
   mutate(cumul = if_else(cumul == "value", TRUE, FALSE))
 
+fdev <- function(dat){
+  df <- group_by(dat, ay) %>%
+    mutate(fac = value / lag(value)) %>%
+    ungroup %>% na.omit %>% filter(is.finite(fac))
+
+  res <- df %>%
+    group_by(dev) %>%
+    summarise(mean = mean(fac, trim = 0),
+              trimmean = mean(fac, trim = 1/n()))
+
+  res <- bind_cols(res, loess = predict(loess(fac ~ dev, span = .7, data=df),
+                                        data.frame(dev = 2:max(df$dev))))
+  list(df=df, est=res)
+}
+
 dtri <- function(dat, cal = FALSE, digits = 2, th = 0, q = c(0.2,2)){
 
   foo <- function(x, q) {
@@ -143,32 +158,20 @@ server <- function(input, output) {
   })
 
   output$faccurves <- renderPlot({
-    df <- group_by(datre(), ay) %>%
-      mutate(fac = value / lag(value)) %>%
-      ungroup %>% na.omit %>% filter(is.finite(fac))
-
-    df1 <- df %>% group_by(dev) %>%
-      summarise(mean = mean(fac, trim = 0),
-                trimmean = mean(fac, trim = 1/n())) %>%
-      ungroup %>%
-      gather(method, fac, -dev)
+    res <- fdev(datre())
+    df <- res$df
+    df1 <- res$est %>% gather(method, fac, -dev)
 
     ggplot(df, aes(x=as.factor(dev), y=fac)) +
       geom_jitter(width=0.1) +
-      #         geom_boxplot(width=0.05, outlier.colour="red", outlier.shape=8, outlier.size=4) +
       geom_line(size=1, data=df1, aes(x=as.factor(dev), y=fac, group=as.factor(method), colour=as.factor(method))) +
       #       scale_x_continuous(breaks = seq(min(df$dev), max(df$dev), by = 1)) +
       scale_color_discrete(name = "Method") + labs(x="Development year", y="")
   })
 
   output$faccurvestable <- function(){
-    df <- group_by(datre(), ay) %>%
-      mutate(fac = value / lag(value)) %>%
-      ungroup %>% na.omit %>% filter(is.finite(fac))
-
-    df1 <- df %>% group_by(dev) %>%
-      summarise(mean = mean(fac, trim = 0),
-                trimmean = mean(fac, trim = 1/n())) %>%
+    res <- fdev(datre())
+    df1 <- res$est %>%
       ungroup %>%
       gather(meth,val,-dev) %>%
       spread(dev, val) %>%
