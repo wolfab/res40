@@ -6,7 +6,7 @@ library(ggplot2)
 library(kableExtra)
 
 # Load data
-dat <- readRDS(file="~/R/triplot/data/prv.RDat")
+dat <- readRDS(file="~/R/res40/data/resdat.RDat")
 dat <- arrange(dat, lob, type, ay, dev)
 
 # Add incremental diff and devf columns
@@ -67,7 +67,7 @@ dtri <- function(dat, cal = FALSE, digits = 2, th = 0, q = c(0.2,2)){
 
 # Define UI
 ui <- fluidPage(theme = shinytheme("lumen"),
-                titlePanel("Visualize Loss Triangles"),
+                titlePanel("res40"),
                 sidebarLayout(
                   sidebarPanel(
                     # Select type of trend to plot
