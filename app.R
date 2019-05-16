@@ -4,9 +4,10 @@ library(shinythemes)
 library(tidyverse)
 library(ggplot2)
 library(kableExtra)
+library(quantreg)
 
 # Load data
-dat <- readRDS(file="~/R/res40/data/resdat.RDat")
+dat <- readRDS(file="~/R/res40/data/pall.RDat")
 dat <- arrange(dat, lob, type, ay, dev)
 
 # Add incremental diff and devf columns
@@ -25,10 +26,18 @@ fdev <- function(dat){
   res <- df %>%
     group_by(dev) %>%
     summarise(mean = mean(fac, trim = 0),
-              trimmean = mean(fac, trim = 1/n()))
+              meantrim = mean(fac, trim = 1/n()),
+#              meantrim2 = mean(fac, trim = 0.2),
+              q75 = quantile(fac, 0.75),
+              q90 = quantile(fac, 0.9))
 
-  res <- bind_cols(res, loess = predict(loess(fac ~ dev, span = .7, data=df),
-                                        data.frame(dev = 2:max(df$dev))))
+#  res <- bind_cols(res, loess = predict(loess(fac ~ dev, span = .7, data=df),
+#                                       data.frame(dev = 2:max(df$dev))))
+
+#  res <- bind_cols(res, qr75 = c(predict(rqss(fac ~ qss(dev, lambda = 0.5), tau = 0.75, data=df),
+ #                                      data.frame(dev = 2:max(df$dev)))))
+#  res <- bind_cols(res, qr90 = c(predict(rqss(fac ~ qss(dev, lambda = 0.5), tau = 0.90, data=df),
+ #                                      data.frame(dev = 2:max(df$dev)))))
   list(df=df, est=res)
 }
 
@@ -106,8 +115,8 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                                 tabPanel("Loss Curves", plotOutput(outputId = "curves")),
                                 tabPanel("Dev Factors", tableOutput(outputId = "factable")),
                                 tabPanel("Factor Boxplots", plotOutput(outputId = "boxplots")),
-                                tabPanel("Factor Curves", plotOutput(outputId = "faccurves"),
-                                         tableOutput(outputId = "faccurvestable"))
+                                tabPanel("Factor Curves", plotOutput(outputId = "faccurves")),
+                                tabPanel("Results", tableOutput(outputId = "faccurvestable"))
                     )
                   )
                 )
@@ -134,10 +143,12 @@ server <- function(input, output) {
       geom_line(size=1) +
       scale_x_continuous(breaks = seq(min(datp$dev), max(datp$dev), by = 1)) +
       ggtitle("Losses") +
-      scale_color_discrete(name = "AY") + labs(x="Development year", y="Amount in € million")
+      scale_color_discrete(name = "AY") + labs(x="Development year", y="Amount in € million") +
+      theme(legend.text=element_text(size=16))
     if(input$facet) {p + facet_wrap(~ as.factor(ay), ncol=6)}
     else { p }
-  })
+  },
+  height = 800)
 
   output$tritable <- function(){
     dtri(datre(), cal=input$calen, digits=as.numeric(input$digits))
@@ -166,8 +177,10 @@ server <- function(input, output) {
       geom_jitter(width=0.1) +
       geom_line(size=1, data=df1, aes(x=as.factor(dev), y=fac, group=as.factor(method), colour=as.factor(method))) +
       #       scale_x_continuous(breaks = seq(min(df$dev), max(df$dev), by = 1)) +
-      scale_color_discrete(name = "Method") + labs(x="Development year", y="")
-  })
+      scale_color_discrete(name = "Method") + labs(x="Development year", y="") +
+      theme(legend.text=element_text(size=16))
+  },
+  height = 800)
 
   output$faccurvestable <- function(){
     res <- fdev(datre())
@@ -177,7 +190,7 @@ server <- function(input, output) {
       spread(dev, val) %>%
       rename(Method = meth) %>%
       kable("html", digits=as.numeric(input$digits)) %>%
-      kable_styling(bootstrap_options = "striped", full_width = F, position = "center")
+      kable_styling(bootstrap_options = "striped", full_width = F, position = "left", font_size = 20)
   }
 
 }
