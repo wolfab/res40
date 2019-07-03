@@ -1,1 +1,1 @@
-# res40 Visualize Loss Triangles
+# res40 Loss Triangles
