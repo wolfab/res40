@@ -7,8 +7,10 @@ library(kableExtra)
 library(quantreg)
 
 # Load data
-dat <- readRDS(file="~/R/res40/data/pall.RDat")
+dat <- readRDS(file="~/R/res40/data/r.RDat")
 dat <- arrange(dat, lob, type, ay, dev)
+
+prm <- readRDS(file="~/R/res40/data/rprm.RDat")
 
 # Add incremental diff and devf columns
 dat <- dat %>% group_by(lob, type, ay) %>%
@@ -17,6 +19,8 @@ dat <- dat %>% group_by(lob, type, ay) %>%
   ungroup() %>%
   gather(cumul, value, -(lob:dev)) %>%
   mutate(cumul = if_else(cumul == "value", TRUE, FALSE))
+
+dat <- left_join(dat, prm, by = c("lob","ay")) %>% mutate(lr = value / prm)
 
 fdev <- function(dat){
   df <- group_by(dat, ay) %>%
@@ -102,10 +106,16 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                                   label = "Cumulative",
                                   value = TRUE),
                     checkboxInput(inputId = "calen",
-                                  label = "Calender View",
+                                  label = "Calendar view",
                                   value = FALSE),
                     checkboxInput(inputId = "facet",
                                   label = "Facet loss curves",
+                                  value = FALSE),
+                    checkboxInput(inputId = "logloss",
+                                  label = "Log loss",
+                                  value = FALSE),
+                    checkboxInput(inputId = "lossratio",
+                                  label = "Loss Ratio",
                                   value = FALSE)
                   ),
                   # Output: Description, lineplot, and reference
@@ -137,13 +147,16 @@ server <- function(input, output) {
   })
 
   output$curves <- renderPlot({
-    datp <- datre() %>% na.omit()
+    datp <- datre()
+    if(input$logloss) {datp$value <- log(datp$value)}
+    if(input$lossratio) {datp$value <- datp$lr}
+#    datp <- datp %>% drop_na(value)
     p <- ggplot(datp, aes(x=dev, y=value, group=as.factor(ay), colour=as.factor(ay))) +
       geom_point(size=2) +
       geom_line(size=1) +
       scale_x_continuous(breaks = seq(min(datp$dev), max(datp$dev), by = 1)) +
       ggtitle("Losses") +
-      scale_color_discrete(name = "AY") + labs(x="Development year", y="Amount in € million") +
+      scale_color_discrete(name = "AY") + labs(x="Development year", y=if_else(input$lossratio, "Loss Ratio", "Amount in € million")) +
       theme(legend.text=element_text(size=16))
     if(input$facet) {p + facet_wrap(~ as.factor(ay), ncol=6)}
     else { p }
