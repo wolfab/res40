@@ -1,1 +1,1 @@
-# res40 Loss Triangles
+# res40 Loss Triangles and other
