@@ -4,7 +4,6 @@ library(shinythemes)
 library(tidyverse)
 library(ggplot2)
 library(kableExtra)
-library(quantreg)
 
 # Load data
 dat <- readRDS(file="~/R/res40/data/r.RDat")
