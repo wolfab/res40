@@ -9,18 +9,17 @@ Res40 is the grammar for actuarial loss reserving, providing the calculation of 
 Install.package(“Res40”)  
 Library (”app.R”)
 ```
-##Usage 
+## Usage 
+
 Given the actuarial payment and reserve data in the corresponding accident and development year, the app generates the actuarial loss triangle, calculate the link ratio, and illustrate the numbers.
 
-In the panel of triangle, the column represents the accident year (`AY`, vary from 1982 to 2017), and the row represent the development year (`Dev`, vary from 1 to 50). The length of the column is great or equal the length of row in the display. 
+In the panel of `Triangle`, the column represents the accident year (`AY`, vary from 1982 to 2017), and the row represent the development year (`Dev`, vary from 1 to 50). The length of the column is great or equal the length of row in the display. 
 
 The filled number of the triangle is determined by the following variables.  
 
-`LOB` means the business line, indicates the type of insurance (mortgage, auto, etc).   
+`LOB`indicates different insurance business lines (mortgage, auto, etc).   
 
-Triangle type concludes: case incurred (`inc`), case reserves or case outstandings (`os`) and case paid (`paid`) with the relation that 
-
-case incurred = case outstandings + case paid. 
+`Triangle type` concludes case incurred (`inc`), case reserves or case outstandings (`os`) and case paid (`paid`) with the relation * case incurred = case outstandings + case paid.*
 
 `Digits` is the number of digits
 
@@ -37,14 +36,13 @@ And the red points are the outliers.
 
 `Results` is the number of the four summaries above.
 
-`Calendar view`: representation of the triangle  
+`Calendar view` representates of the triangle  
 
-`Facet loss curves`: the indepent plot of the numbers in trianlge of each year 
+`Facet loss curves` is the indepent plot of the numbers in trianlge of each year 
 
-`Log loss` : the logarithm of the numbers in triangle
+`Log loss` is the logarithm of numbers in triangle
 
-`Loss ratio`: represent the ratio of loss amounts from one valuation date to another, and they are intended to capture growth patterns of losses over time. 
-1122
+`Loss ratio` represents the ratio of loss amounts from one valuation date to another, and they are intended to capture growth patterns of losses over time. 
 
 
 
