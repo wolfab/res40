@@ -6,11 +6,11 @@ Res40 is the grammar for actuarial loss reserving, providing the calculation of 
 
 ## Installation 
 ```javascript
-Install.package(“Res40”)  
+Install.package("Res40")  
 ```
 ## Usage 
 ```javascript
-Library (”app.R”)
+Library ("app.R")
 ```
 
 Given the actuarial payment and reserve data in the corresponding accident and development year, the app generates the actuarial loss triangle, calculate the link ratio, and illustrate the numbers.
