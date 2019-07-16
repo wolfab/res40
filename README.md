@@ -44,6 +44,7 @@ And the red points are the outliers.
 `Log loss` : the logarithm of the numbers in triangle
 
 `Loss ratio`: represent the ratio of loss amounts from one valuation date to another, and they are intended to capture growth patterns of losses over time. 
+11
 
 
 
