@@ -22,15 +22,22 @@ This paragraph has some `variable` inline code.
 
 ```html
 <p>A paragraph example</p>
+
 ```
 ```javascript
 let num = Math.random();
 ```
+![alt text](http://picsum.photos/200/200)
 
-''' html
-<p> A paragraph example </p>
-'''
-'''javascript
-let num = Math.random();
-'''
+Some paragraph with text
+> blockquote text below the paragraph
+
+| heading | header | head |
+| --- | --- | --- |
+| content | more content | text |
+| more | more | more |
+
+This is being * created * on a ** Friday ** ~~Saturday~~.
+
+
 
