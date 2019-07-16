@@ -19,6 +19,12 @@ this is a programm for non-life insurance reserving, which automatically generat
 
 this line has some 'varible' inside
 
+```html
+<p>A paragraph example</p>
+```
+```javascript
+let num = Math.random();
+```
 ''' html
 <p> A paragraph example </p>
 '''
