@@ -5,4 +5,24 @@ this is a programm for non-life insurance reserving, which automatically generat
 
 # example site 
 
-*this is a sample readme file for Github 
+*this is a sample readme file for Github ff
+
+# heading 
+## sub heading 
+### sub sub heading 
+
+- first 
+- second
+  - indented 
+    1. inner number 
+[this is a description](https://github.com/limin0926/myrepo/)
+
+this line has some 'varible' inside
+
+''' html
+<p> A paragraph example </p>
+'''
+'''javascript
+let num = Math.random();
+'''
+
