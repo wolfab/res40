@@ -18,6 +18,7 @@ this is a programm for non-life insurance reserving, which automatically generat
 [this is a description](https://github.com/limin0926/myrepo/)
 
 this line has some 'varible' inside
+This paragraph has some `variable` inline code.
 
 ```html
 <p>A paragraph example</p>
