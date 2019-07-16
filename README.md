@@ -38,13 +38,13 @@ The filled number of the triangle is determined by the following variables.
 
 - `Comulative` is the cumulative amount in the development year, without comulative is the incremental amount.
 
--`Calendar view` is the re-arrangement of the triangle  
+- `Calendar view` is the re-arrangement of the triangle  
 
--`Facet loss curves` is the seperate plots of each year of the `loss curves`.
+- `Facet loss curves` is the seperate plots of each year of the `loss curves`.
 
--`Log loss` is the logarithm of numbers in the triangle
+- `Log loss` is the logarithm of numbers in the triangle
 
--`Loss ratio` represents the ratio of loss amounts from one valuation date to another, and they are intended to capture growth patterns of losses over time. 
+- `Loss ratio` represents the ratio of loss amounts from one valuation date to another, and they are intended to capture growth patterns of losses over time. 
 
 ## Getting help 
 
