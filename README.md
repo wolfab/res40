@@ -34,15 +34,15 @@ The filled number of the triangle is determined by the following variables.
 
 - `Triangle type` concludes case incurred (`inc`), case reserves or case outstandings (`os`) and case paid (`paid`) with the relation *case incurred = case outstandings + case paid.*
 
-- `Digits` is the number of digits
+- `Digits` is the number of digits.
 
 - `Comulative` is the cumulative amount in the development year, without comulative is the incremental amount.
 
-- `Calendar view` is the re-arrangement of the triangle  
+- `Calendar view` is the re-arrangement of the triangle.  
 
 - `Facet loss curves` is the seperate plots of each year of the `loss curves`.
 
-- `Log loss` is the logarithm of numbers in the triangle
+- `Log loss` is the logarithm of numbers in the triangle.
 
 - `Loss ratio` represents the ratio of loss amounts from one valuation date to another, and they are intended to capture growth patterns of losses over time. 
 
