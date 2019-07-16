@@ -15,7 +15,7 @@ Library (”app.R”)
 
 Given the actuarial payment and reserve data in the corresponding accident and development year, the app generates the actuarial loss triangle, calculate the link ratio, and illustrate the numbers.
 
-In the panel of `Triangle`, the column represents the accident year (`AY`, vary from 1982 to 2017), and the row represent the development year (`Dev`, vary from 1 to 50). The length of the column is great or equal the length of row in the display. the year can be vaied via the slides of the 
+In the panel of `Triangle`, the column represents the accident year (`AY`, vary from 1982 to 2017), and the row represent the development year (`Dev`, vary from 1 to 50). The length of the column is great or equal the length of row in the display. 
 
 `Loss Curves` is the dotplot of the numbers  in the triangle over the development year.
 
