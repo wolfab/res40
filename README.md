@@ -7,27 +7,19 @@ Res40 is the grammar for actuarial loss reserving, providing the calculation of 
 ## Installation 
 ```javascript
 Install.package(“Res40”)  
-Library (”app.R”)
 ```
 ## Usage 
+```javascript
+Library (”app.R”)
+```
 
 Given the actuarial payment and reserve data in the corresponding accident and development year, the app generates the actuarial loss triangle, calculate the link ratio, and illustrate the numbers.
 
-In the panel of `Triangle`, the column represents the accident year (`AY`, vary from 1982 to 2017), and the row represent the development year (`Dev`, vary from 1 to 50). The length of the column is great or equal the length of row in the display. 
+In the panel of `Triangle`, the column represents the accident year (`AY`, vary from 1982 to 2017), and the row represent the development year (`Dev`, vary from 1 to 50). The length of the column is great or equal the length of row in the display. the year can be vaied via the slides of the 
 
-The filled number of the triangle is determined by the following variables.  
+`Loss Curves` is the dotplot of the numbers  in the triangle over the development year.
 
-`LOB`indicates different insurance business lines (mortgage, auto, etc).   
-
-`Triangle type` concludes case incurred (`inc`), case reserves or case outstandings (`os`) and case paid (`paid`) with the relation * case incurred = case outstandings + case paid.*
-
-`Digits` is the number of digits
-
-`Comulative` is the cumulative amount in the development year, without comulative is the incremental amount.
-
-In the panel of `Loss Curves`, the curves represent dot plot of the numbers in triangle.
-
-`Dev Factors` is the loss ratio
+`Dev Factors` represents the ratio of loss amounts from one valuation date to another, and they are intended to capture growth patterns of losses over time. 
 
 `Factor Boxplots` displays the distribution of the loss ratio based on the five number summary: minimum, first quartile, median, third quartile, and maximum
 And the red points are the outliers. 
@@ -36,15 +28,25 @@ And the red points are the outliers.
 
 `Results` is the number of the four summaries above.
 
-`Calendar view` representates of the triangle  
+The filled number of the triangle is determined by the following variables.  
 
-`Facet loss curves` is the indepent plot of the numbers in trianlge of each year 
+- `LOB`indicates different insurance business lines (mortgage, auto, etc).   
 
-`Log loss` is the logarithm of numbers in triangle
+- `Triangle type` concludes case incurred (`inc`), case reserves or case outstandings (`os`) and case paid (`paid`) with the relation *case incurred = case outstandings + case paid.*
 
-`Loss ratio` represents the ratio of loss amounts from one valuation date to another, and they are intended to capture growth patterns of losses over time. 
+- `Digits` is the number of digits
 
+- `Comulative` is the cumulative amount in the development year, without comulative is the incremental amount.
 
+-`Calendar view` is the re-arrangement of the triangle  
+
+-`Facet loss curves` seperately plots the the numbers in the trianlge of each year .
+
+-`Log loss` is the logarithm of numbers in the triangle
+
+-`Loss ratio` represents the ratio of loss amounts from one valuation date to another, and they are intended to capture growth patterns of losses over time. 
+
+## get help 
 
 
 
