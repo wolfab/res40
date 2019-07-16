@@ -40,13 +40,14 @@ The filled number of the triangle is determined by the following variables.
 
 -`Calendar view` is the re-arrangement of the triangle  
 
--`Facet loss curves` seperately plots the the numbers in the trianlge of each year .
+-`Facet loss curves` is the seperate plots of each year of the `loss curves`.
 
 -`Log loss` is the logarithm of numbers in the triangle
 
 -`Loss ratio` represents the ratio of loss amounts from one valuation date to another, and they are intended to capture growth patterns of losses over time. 
 
-## get help 
+## Getting help 
 
+If you encounter a clear bug, please file a minimal reproducible example on github.
 
 
