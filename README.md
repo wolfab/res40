@@ -10,7 +10,7 @@ Install.package("Res40")
 ```
 ## Usage 
 ```javascript
-Library ("app.R")
+library ("app.R")
 ```
 
 Given the actuarial payment and reserve data in the corresponding accident and development year, the app automatically generates the actuarial loss triangle, calculate the link ratio, and illustrate the numbers.
