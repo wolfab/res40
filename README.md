@@ -4,7 +4,7 @@
 
 Res40 is the grammar for actuarial loss reserving, providing the calculation of the loss ratio for chian-ladder or development method. This is an interactive program and can be used as an app. 
 
-central_config
+central_config_rstudio
 
 ## Installation 
 ```javascript
